@@ -19,7 +19,7 @@ struct _image_datas {
 	uint64_t * data;
 };
 
-int _tmain(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	int option; // 0 => g / 1 => d
 	char * nomFichier;
