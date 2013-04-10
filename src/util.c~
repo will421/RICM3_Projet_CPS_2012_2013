@@ -1,4 +1,6 @@
 
+#include <stdint.h>
+
 typedef struct _image_datas image_data;
 
 enum typeImage {
@@ -14,10 +16,3 @@ struct _image_datas {
 	int vmax;
 	uint64_t * data;
 };
-
-#endif
-
-
-
-
-
