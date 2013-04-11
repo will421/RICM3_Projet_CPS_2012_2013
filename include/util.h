@@ -19,7 +19,7 @@ struct image {
 void coloredtogray(image * i,float a,float b,float c);
 
 // Converti un PPM en PBM 
-void coloredtoBW();
+void coloredtoBW(image * i,float alpha);
 
 // Lit le type d'une image
 void readType();

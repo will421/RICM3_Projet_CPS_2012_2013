@@ -2,6 +2,19 @@
 #include <stdint.h>
 
 
+enum typeImage {
+	P1=1, 			// PBM
+	P2=2, 			// PGM
+	P3=3  			// PPM
+} typeImage;
+
+struct image {
+	enum typeImage t;		//
+	uint32_t l;			//
+	uint32_t h;			//
+	int vmax;			//
+	uint64_t * data;	//
+} image;
 
 // Converti un PPM en PGM 
 void coloredtogray(struct image * im,float a,float b,float c)
@@ -10,8 +23,26 @@ void coloredtogray(struct image * im,float a,float b,float c)
 	uint64_t * data = im->data ;
 	uint64_t i;
 	for(i=0;i<=nbpixel;i++) {
-	        RGBtoGrey(data+i,0.299,0.587,0.114);
+	        RGBtoGrey(data+i,a,b,c);
 	}
+}
+
+// Converti un PPM en PBM 
+void coloredtoBW(struct image * i,float alpha) {
+        uint64_t nbpixel = (im->l * im->h);
+        uint64_t * data = im->data ;
+	uint64_t i;
+	for(i=0;i<=nbpixel;i++) {
+	        RGBtoBW(data+i,im->vmax,alpha);
+	}
+}
+
+//Prend RGB et convertis en noir et blanc en fonction de l'alpha
+void RGBtoBW(uint64_t *pixel,int vmax,float alpha) {
+        uint16_t r,g,bl;
+        getColor(pixel,&r,&g,&bl);
+        int val = (r*g*bl)/vmax;
+        *pixel = val<alpha ? 0 : 1 ;
 }
 
 //Prend RGB et convertis en gris avec les constantes associés
