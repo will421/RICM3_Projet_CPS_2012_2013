@@ -1,3 +1,11 @@
+/**
+ * \file pgm.h
+ * \brief Operations spécifiques aux images PGM.
+ * \author Corentin RICOU et William BOBO
+ * \version 1
+ * \date 11 avil 2013
+ */
+
 #ifndef PGM_H
 #define PGM_H
 
@@ -7,7 +15,14 @@
 #include <stdlib.h>
 #include <string.h> 
 
-/* ecris l'image dans un fichier pgm */
+/**
+ * \fn int writepgm(FILE * destFile, image* img);
+ * \brief Ecrit une image dans un fichier PGM au préalable ouvert.
+ *
+ * \param[out] destFile Le fichier pgm à remplir avec l'image modifié.
+ * \param[in] img La structure de type image à mettre dans le fichier pgm.
+ * \return EXIT_SUCCESS si le fichier a été replit correctement, EXIT_FAILURE sinon.
+ */
 int writepgm(FILE * destFile, image* img);
 
 #endif

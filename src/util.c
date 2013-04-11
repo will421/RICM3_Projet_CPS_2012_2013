@@ -4,7 +4,6 @@ void trace(char * message) {
         printf("trace :%s\n",message);
 }
 
-
 /* Lit le type d'une image */
 int readType(FILE *sourceFile, typeImage *type){
 	char inType[3];

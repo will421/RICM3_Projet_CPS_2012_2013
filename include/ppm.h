@@ -1,3 +1,11 @@
+/**
+ * \file ppm.h
+ * \brief Operations spécifiques aux images PPM.
+ * \author Corentin RICOU et William BOBO
+ * \version 1
+ * \date 11 avil 2013
+ */
+
 #ifndef PPM_H
 #define PPM_H
 
@@ -7,13 +15,33 @@
 #include <stdlib.h>
 #include <string.h> 
 
-/* lit une ligne dans le fichier et retourne un etier qui correspond à la couleur */
+/**
+ * \fn int readPixelppm(FILE *sourceFile, uint64_t *pixel)
+ * \brief 
+ *
+ * \param[in] sourceFile Le fichier PPM duquel on lit un pixel.
+ * \param[out] pixel L'entier correspondant à la couleur du pixel lu dans le fichier
+ * \return EXIT_SUCCESS si , EXIT_FAILURE sinon.
+ */
 int readPixelppm(FILE *sourceFile, uint64_t *pixel);
 
-/* lit toute la data du fichier et remplis une image. */
-int readDatappm(FILE *sourceFile,image *i);
+/**
+ * \fn int writepgm(FILE * destFile, image* img);
+ * \brief Lit toute la partie data du fichier ppm et la met dans "data" de img
+ *
+ * \param[out] sourceFile Le fichier ppm à lire.
+ * \param[in] img l'image à remplir avec la partie data.
+ * \return EXIT_SUCCESS si , EXIT_FAILURE sinon.
+ */
+int readDatappm(FILE *sourceFile,image *img);
 
-/* lit une image ppm */
+/**
+ * \fn int writepgm(FILE * destFile, image* img);
+ * \brief Lit un fichier ppm, créé une structure image et la remplit.
+ *
+ * \param[in] sourceFile Le fichier ppm à lire.
+ * \return Un pointeur sur l'image créé lors de la lecture ou null sinon 
+ */
 image* readppm(FILE *sourceFile);
 
 #endif

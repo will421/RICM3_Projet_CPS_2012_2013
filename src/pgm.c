@@ -1,6 +1,5 @@
 #include "pgm.h"
 
-/* ecris l'image dans un fichier pgm */
 int writepgm(FILE * destFile, image* img){
 	int i;
 	uint64_t size;
