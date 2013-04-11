@@ -81,18 +81,16 @@ int main(int argc, char* argv[])
 	fileSource = fopen(sourceName,"r");
 
 	img = readppm(fileSource);
-	
-	printData(img);
-	
+
 	coloredtogray(img,a,b,c);
 	
-	printData(img);
 	
-	/*fileDest = fopen("out.pgm", "w+");
+	
+	fileDest = fopen("out.pgm", "w+");
 	if(fileDest == NULL) printf("BOOOO\n");
 	
 	i = writepgm(fileDest,img);
-	printf("%d",i);*/
+	printf("%d",i);
 	
 	printf("img -> type : %d\n",img->t);
 	printf("img -> l : %d\n",img->l);

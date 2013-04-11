@@ -1,5 +1,10 @@
 #include "util.h"
 
+void trace(char * message) {
+        printf("trace :%s\n",message);
+}
+
+
 /* Lit le type d'une image */
 int readType(FILE *sourceFile, typeImage *type){
 	char inType[3];
@@ -49,19 +54,6 @@ int readMax(FILE *sourceFile,int *max){
    }
    return result;
 }
-
-/* Converti un PPM en PGM  */
-void coloredtogray( image * im,float a,float b,float c)
-{
-	uint64_t nbpixel = (im->l * im->h);
-	uint64_t * data = im->data ;
-	uint64_t i;
-	for(i=0;i<=nbpixel;i++) {
-	        RGBtoGrey(data+i,a,b,c);
-	}
-	im->t = P2;
-}
-
 /* Converti un PPM en PBM */
 void coloredtoBW( image * im,float alpha) {
    uint64_t nbpixel = (im->l * im->h);
@@ -80,6 +72,19 @@ void RGBtoBW(uint64_t *pixel,int vmax,float alpha) {
         int val = (r*g*bl)/vmax;
         *pixel = val<alpha ? 0 : 1 ;
 }
+
+/* Converti un PPM en PGM  */
+void coloredtogray( image * im,float a,float b,float c)
+{
+	uint64_t nbpixel = (im->l * im->h);
+	uint64_t * data = im->data ;
+	uint64_t i;
+	for(i=0;i<=nbpixel;i++) {
+	        RGBtoGrey(data+i,a,b,c);
+	}
+	im->t = P2;
+}
+
 
 /* Prend RGB et convertis en gris avec les constantes associés */
 void RGBtoGrey(uint64_t *pixel,float a,float b,float c) {
@@ -101,3 +106,16 @@ void getColor(uint64_t const *pixel, uint16_t *r,uint16_t *g,uint16_t *b) {
 
 }
 
+char * typeToString(typeImage type){
+
+	if(type == 1){
+	        return "P1";
+	} else if (type == 2 ) {
+	        return "P2";
+	}
+	else if ( type == 3 ) {
+	        return "P3";
+	} else {
+	        return  "";
+	 }
+}

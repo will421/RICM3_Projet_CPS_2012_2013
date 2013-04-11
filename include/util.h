@@ -22,11 +22,16 @@ typedef struct image {
 	uint64_t *data;	
 } image;
 
+/*Affiche un message sur une ligne */
+void trace(char * message);
+
 /* Convertit un PPM en PGM */
 void coloredtogray(image * i,float a,float b,float c);
+void RGBtoGrey(uint64_t *pixel,float a,float b,float c);
 
 /* Convertit un PPM en PBM */
 void coloredtoBW(image * i,float alpha);
+void RGBtoBW(uint64_t *pixel,int vmax,float alpha);
 
 /* Lit le type d'une image */
 int readType(FILE *sourceFile, typeImage *type);
@@ -39,5 +44,7 @@ int readMax(FILE *sourceFile,int *max);
 
 /* Prend un entier sur 64 bit et retourne le (r,g,b) */
 void getColor(uint64_t const *pixel, uint16_t *r,uint16_t *g,uint16_t *b);
+
+char * typeToString(typeImage type);
 
 #endif

@@ -36,7 +36,7 @@ LDFLAGS=
 
 #########################################
 ############ LES REGLES #################
-all: traitement_image test
+all: traitement_image
 traitement_image: $(DBIN)/$(EXEC)
 test: $(TDBIN)/$(TEXEC)
 

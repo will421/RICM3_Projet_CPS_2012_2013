@@ -11,9 +11,10 @@ int writepgm(FILE * destFile, image* img){
 	
 	size = img->l * img->h;
 	
-	/* fprintf(destFile, "%s\n",img->t); */
+   fprintf(destFile, "%s\n",typeToString(img->t));
    fprintf(destFile, "%u %u\n", img->l, img->h);
-   fprintf(destFile, "%llu\n", img->vmax);
+   printf("%d\n",img->vmax);
+   fprintf(destFile, "%d\n", img->vmax);
    
    for(i = 0;i<size;i++){
    	if( i%img->l == 0) {fprintf(destFile, "\n");}
