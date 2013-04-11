@@ -1,33 +1,43 @@
 #ifndef _H
 #define _H
 
-enum typeImage {
+#define DEBUG 0
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
+
+typedef enum typeImage {
 	P1=1, 			// PPM
 	P2=2, 			// PGM
 	P3=3  			// PBM
 } typeImage;
 
-struct image {
-	typeImage t;		//
+typedef struct image {
+	enum typeImage t;		//
 	uint32_t l;			//
 	uint32_t h;			//
 	int vmax;			//
-	uint64_t * data;	//
+	uint64_t *data;	//
 } image;
 
 // Converti un PPM en PGM 
-void coloredtogray();
+//void coloredtogray();
 
 // Converti un PPM en PBM 
-void coloredtoBW();
+//void coloredtoBW();
 
 // Lit le type d'une image
-void readType();
+int readType(FILE *sourceFile, typeImage *type);
 
 // Lit les dimmensions d'une image
-void readDimension();
+int readDimension(FILE *sourceFile, uint32_t *l, uint32_t *h);
+
+// Lit la valeur max
+int readMax(FILE *sourceFile,int *max);
 
 // Prend un entier sur 64 bit et retourne le (r,g,b)
-void getColor(uint64_t const *pixel, uint32_t *r,uint32_t *g,uint32_t *b);
+//void getColor(uint64_t const *pixel, uint32_t *r,uint32_t *g,uint32_t *b);
 
 #endif

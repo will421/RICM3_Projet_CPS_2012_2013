@@ -1,14 +1,16 @@
 // Projet C.cpp : définit le point d'entrée pour l'application console.
 //
 
+#include <stdint.h>
 #include <stdio.h>
-
-
-#define DEBUG 1
+#include <stdlib.h>
+#include <string.h> 
+#include "util.h"
+#include "ppm.h"
 
 int main(int argc, char* argv[])
 {
-	int option; // 0 => g / 1 => d
+	/*int option; // 0 => g / 1 => d
 	char * nomFichier;
 	FILE *f;
 	if(*(argv+1)=="-g") { 
@@ -24,10 +26,28 @@ int main(int argc, char* argv[])
 	}
 	else {
 		f = NULL;
-		}
+	}
 	if (f==NULL)
 	{
 		f = stdin;
-	}
+	}*/
+	
+	FILE *fileSource = NULL;
+   FILE *fileDest = NULL;
+   char *sourceName = NULL;
+   char *destName = NULL; 
+   image *img = NULL;
+   
+   sourceName = *(argv+1);
+	
+	fileSource = fopen(sourceName,"r");
+
+	img = readppm(fileSource);
+	
+	printf("img -> type : %d\n",img->t);
+	printf("img -> l : %d\n",img->l);
+	printf("img -> h : %d\n",img->h);
+	printf("img -> max : %d\n",img->vmax);
+	
 }
 
