@@ -1,5 +1,7 @@
-// Projet C.cpp : définit le point d'entrée pour l'application console.
-//
+/* Projet C.cpp : définit le point d'entrée pour l'application console.
+
+
+*/
 
 #include <stdint.h>
 #include <stdio.h>
@@ -7,6 +9,29 @@
 #include <string.h> 
 #include "util.h"
 #include "ppm.h"
+#include "pgm.h"
+
+
+
+void printData(image *img) {
+    unsigned int i;
+    if (img != NULL && img->data != NULL) {
+        printf("\tData :");
+        if (img->t == P1) {
+            for (i = 0; i < img->l * img->h; i++) {
+                if (i % img->l == 0) printf("\n\t\t");
+                printf("%d ", (int) img->data[i]);
+            }
+        } else {
+            for (i = 0; i < img->l * img->h; i++) {
+                if (i % img->l == 0) printf("\n\t\t");
+                printf("%d ", getRedPart(img->data[i]));
+                printf("%d ", getGreenPart(img->data[i]));
+                printf("%d ", getBluePart(img->data[i]));
+            }
+        }
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -37,12 +62,27 @@ int main(int argc, char* argv[])
    char *sourceName = NULL;
    char *destName = NULL; 
    image *img = NULL;
+   int i;
+   
+   float a = 0.299,b=0.587,c=0.114;
    
    sourceName = *(argv+1);
 	
 	fileSource = fopen(sourceName,"r");
 
 	img = readppm(fileSource);
+	
+	printData(img);
+	
+	coloredtogray(img,a,b,c);
+	
+	printData(img);
+	
+	/*fileDest = fopen("out.pgm", "w+");
+	if(fileDest == NULL) printf("BOOOO\n");
+	
+	i = writepgm(fileDest,img);
+	printf("%d",i);*/
 	
 	printf("img -> type : %d\n",img->t);
 	printf("img -> l : %d\n",img->l);

@@ -31,7 +31,7 @@ TOBJ= $(TSRC:$(TDSRC)/%.c=$(TDOBJ)/%.o)
 #------------------------------------------
 # OPTIONS DE COMPILATION
 CC=gcc
-CFLAGS=-g -std=c99 -pedantic -Wall -Wextra
+CFLAGS=-g -std=c90 -pedantic -Wall -Wextra
 LDFLAGS=
 
 #########################################

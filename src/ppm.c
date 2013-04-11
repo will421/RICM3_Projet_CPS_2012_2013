@@ -5,10 +5,12 @@ int readPixelppm(FILE *sourceFile, uint64_t *pixel){
 	int rf=0,res=EXIT_SUCCESS;
 	rf = fscanf(sourceFile, "%*[ \t\n]%llu%*[ \t\n]%llu%*[ \t\n]%llu", &r, &g, &b);
 	if (rf == 3){
-		r = (r <= 65535) ? r : 65535;b = (b <= 65535) ? b : 65535;g = (g <= 65535) ? g : 65535;
+		r = (r <= 65535) ? r : 65535;
+		b = (b <= 65535) ? b : 65535;
+		g = (g <= 65535) ? g : 65535;
      	p = b + (g << 16) + (r << 32);    
      	*pixel = p;
-     	// MODE DEBUG
+     	/* MODE DEBUG */
      	if(DEBUG){
      		printf("Fonction: readPixelppm =>\n");
      		printf("r= %llu g=%llu b=%llu p=%llu\n",r,g,b,p);
@@ -30,7 +32,7 @@ int readDatappm(FILE *sourceFile,image *img){
 	return res;
 }
 
-// lit une image ppm et retourne une image(struct)
+/* lit une image ppm et retourne une image(struct) */
 image* readppm(FILE *sourceFile){
 	image *img = NULL;
    typeImage type;
@@ -61,8 +63,8 @@ image* readppm(FILE *sourceFile){
 	}else{
 		bfile = 0;
 	}
-	//*********************************
-	// ERREUR
+	/**********************************/
+	/* ERREUR */
 	if(!bfile){
 		printf("ERREUR: Impossible d'ouvrir le fichier\n");
 	}
