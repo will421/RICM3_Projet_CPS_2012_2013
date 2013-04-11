@@ -2,9 +2,9 @@
 #define _H
 
 enum typeImage {
-	P1=1, 			// PPM
+	P1=1, 			// PBM
 	P2=2, 			// PGM
-	P3=3  			// PBM
+	P3=3  			// PPM
 } typeImage;
 
 struct image {
@@ -16,7 +16,7 @@ struct image {
 } image;
 
 // Converti un PPM en PGM 
-void coloredtogray();
+void coloredtogray(image * i,float a,float b,float c);
 
 // Converti un PPM en PBM 
 void coloredtoBW();
