@@ -43,59 +43,101 @@ void printData(image *img) {
     }
 }
 
+
+void message(char * mess) {
+    printf("Message : %s\n",mess);
+ }
+    
+char * verifppm(char * filename) {
+    char * ppm = strstr(filename,".ppm");
+    if (ppm==NULL) {
+        message("Format de fichier inconnu. \".ppm\" demandé");
+        exit(0);
+    } else {
+        if (filename+strlen(filename) != ppm+4) {
+            message("Nom de fichier invalide : xxx.ppm");
+            exit(0); 
+            }
+    }
+   /*du mal à terminer*/
+}
+
+
+void usage() {
+    printf("Usage : traitement_image [-g|-d] (FILE)\n");
+}
+
 int main(int argc, char* argv[])
 {
-	/*int option; // 0 => g / 1 => d
-	char * nomFichier;
-	FILE *f;
-	if(*(argv+1)=="-g") { 
-		option = 0;
-	}
-	else if (*(argv+1)=="-d") {
-		option = 1;
-	}
-	else { printf("Erreur : Option %s inconnu\n",argv[1]); return 1;}
+    int option; /* 0 => g / 1 => d */
+    int bfile; /* Si un fichier est donnée en parametre ou non 0->non / 1->oui */
+    
+    FILE *fileSource = NULL;
+    FILE *fileDest = NULL;
+    char *sourceName = NULL;
+    char *destName = NULL; 
+    image *img = NULL;
+    int i,res;
+    
+    float a = 0.299,b=0.587,c=0.114,alpha=0.5;
+    
+    if(argc==1) {
+        usage();
+        return 0;
+    } else if (argc<1) {
+        if (argv[1]=="-g") {
+            option = 0;
+        }
+        else if (argv[1]=="-b") {
+            option = 1;
+        } else {
+            message("Option inconnu");
+            usage();
+            return 0;
+        }
+        if (argc<2) {
+            bfile = 1;
+            
+            if (argc<3) {message("Parametres supplémentaires ignorés");}
+        } else {
+            bfile = 0;
+            
+        }  
+    }
+    
 
-	if(*(argv+2)) {
-		f = fopen(*(argv+2),"r");
-	}
-	else {
-		f = NULL;
-	}
-	if (f==NULL)
+     
+    sourceName = *(argv+2);
+    fileSource = fopen(sourceName,"r");
+    if (fileSource==NULL) { message("Erreur à l'ouverture du fichier"); return 0;}
+    img = readppm(fileSource);  
+    if (option) {
+        coloredtoBW(img,alpha);
+    } else {
+        coloredtogray(img,a,b,c); 
+    }
+	
+	/*a virer*/
+	bfile=0;
+	
+	if(bfile) {
+	    /*a completer*/
+	} else
 	{
-		f = stdin;
-	}*/
-	
-	FILE *fileSource = NULL;
-   FILE *fileDest = NULL;
-   char *sourceName = NULL;
-   char *destName = NULL; 
-   image *img = NULL;
-   int i;
-   
-   float a = 0.299,b=0.587,c=0.114;
-   
-   sourceName = *(argv+1);
-	
-	fileSource = fopen(sourceName,"r");
-
-	img = readppm(fileSource);
-
-	coloredtogray(img,a,b,c);
-	
-	
-	
-	fileDest = fopen("out.pgm", "w+");
-	if(fileDest == NULL) printf("BOOOO\n");
+	    destName = option ? "image.pbm" : "image.pgm";
+	}
+	fileDest = fopen(destName, "w+");
+	if(fileDest == NULL) {message("erreur à l'ouverture du fichier de sortie"); return 0;};
 	
 	i = writepgm(fileDest,img);
-	printf("%d",i);
+	if (!i) {
+	    message("Erreur lors de l'écriture");
+	}
 	
 	printf("img -> type : %d\n",img->t);
 	printf("img -> l : %d\n",img->l);
 	printf("img -> h : %d\n",img->h);
 	printf("img -> max : %d\n",img->vmax);
-	
+    
+    return 0;
 }
-
