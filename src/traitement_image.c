@@ -10,6 +10,7 @@
 #include "util.h"
 #include "ppm.h"
 #include "pgm.h"
+#include "pbm.h"
 
 int getBluePart(uint64_t data) {
     return data & 0xFFFF;
@@ -43,94 +44,107 @@ void printData(image *img) {
     }
 }
 
+void usage() {
+    printf("Usage : traitement_image [-g|-d] (FILE.ppm)\n");
+}
 
 void message(char * mess) {
     printf("Message : %s\n",mess);
  }
     
-char * verifppm(char * filename) {
-    char * ppm = strstr(filename,".ppm");
-    if (ppm==NULL) {
+void verifppm(char * filename) {
+     printf("%s\n",filename);
+    char * extension = strrchr(filename,'.');
+    if (extension==NULL || strcmp(extension,".ppm")!=0) {
         message("Format de fichier inconnu. \".ppm\" demandé");
+        usage();
         exit(0);
-    } else {
-        if (filename+strlen(filename) != ppm+4) {
-            message("Nom de fichier invalide : xxx.ppm");
-            exit(0); 
-            }
     }
-   /*du mal à terminer*/
+}
+
+char * modifExtention(char * sourceName,int option) {
+    int size = strlen(sourceName);
+    char * res = (char *)malloc(sizeof(char)*size);
+    strcpy(res,sourceName);
+    *(res+size-2) = option ? 'b' : 'g';
+    trace(sourceName);
+    trace(res);
+    return res;
 }
 
 
-void usage() {
-    printf("Usage : traitement_image [-g|-d] (FILE)\n");
-}
 
 int main(int argc, char* argv[])
 {
     int option; /* 0 => g / 1 => d */
     int bfile; /* Si un fichier est donnée en parametre ou non 0->non / 1->oui */
-    
     FILE *fileSource = NULL;
     FILE *fileDest = NULL;
     char *sourceName = NULL;
     char *destName = NULL; 
     image *img = NULL;
-    int i,res;
+    int i;
     
     float a = 0.299,b=0.587,c=0.114,alpha=0.5;
     
     if(argc==1) {
         usage();
         return 0;
-    } else if (argc<1) {
-        if (argv[1]=="-g") {
+    } else if (argc>1) {
+        if (strcmp(argv[1],"-g")==0) {
             option = 0;
         }
-        else if (argv[1]=="-b") {
+        else if (strcmp(argv[1],"-b")==0) {
             option = 1;
         } else {
             message("Option inconnu");
             usage();
             return 0;
         }
-        if (argc<2) {
+        if (argc>2) {
             bfile = 1;
-            
-            if (argc<3) {message("Parametres supplémentaires ignorés");}
+            sourceName= *(argv+2);
+            verifppm(sourceName);
+            if (argc>3) {message("Parametres supplémentaires ignorés");}
         } else {
             bfile = 0;
             
         }  
     }
-    
 
+    if(bfile) {
+        fileSource = fopen(sourceName,"r"); 
+        if (fileSource==NULL) { 
+            message("Erreur à l'ouverture du fichier"); 
+            return 0;
+        }
+        img = readppm(fileSource); 
+    } else {
+    
+        /* img = tafonction kikou */
+    }
      
-    sourceName = *(argv+2);
-    fileSource = fopen(sourceName,"r");
-    if (fileSource==NULL) { message("Erreur à l'ouverture du fichier"); return 0;}
-    img = readppm(fileSource);  
     if (option) {
         coloredtoBW(img,alpha);
     } else {
         coloredtogray(img,a,b,c); 
     }
 	
-	/*a virer*/
-	bfile=0;
-	
 	if(bfile) {
-	    /*a completer*/
+	    destName = modifExtention(sourceName,option);
 	} else
 	{
 	    destName = option ? "image.pbm" : "image.pgm";
 	}
+	
 	fileDest = fopen(destName, "w+");
 	if(fileDest == NULL) {message("erreur à l'ouverture du fichier de sortie"); return 0;};
-	
-	i = writepgm(fileDest,img);
-	if (!i) {
+	if (option) {
+	    i = writepbm(fileDest,img);
+	} else {
+	    i = writepgm(fileDest,img);
+	}
+	if (i== EXIT_FAILURE) {
 	    message("Erreur lors de l'écriture");
 	}
 	

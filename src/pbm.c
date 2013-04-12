@@ -4,7 +4,7 @@ int writepbm(FILE * destFile, image* img){
 	int i;
 	uint64_t size;
 	
-	if( destFile == NULL || img == NULL || img->data == NULL || img->t != P2){
+	if( destFile == NULL || img == NULL || img->data == NULL || img->t != P1){
 		return EXIT_FAILURE;
 	}
 	size = img->l * img->h;

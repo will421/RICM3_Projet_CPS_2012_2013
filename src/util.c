@@ -68,7 +68,7 @@ void coloredtoBW( image * im,float alpha) {
 void RGBtoBW(uint64_t *pixel,int vmax,float alpha) {
         uint16_t r,g,bl;
         getColor(pixel,&r,&g,&bl);
-        int val = (r*g*bl)/vmax;
+        double val = (double)(r*g*bl)/(double)(vmax*vmax*vmax);
         *pixel = val<alpha ? 0 : 1 ;
 }
 
