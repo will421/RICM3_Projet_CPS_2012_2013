@@ -134,42 +134,36 @@ void getColor(uint64_t const *pixel, uint16_t *r,uint16_t *g,uint16_t *b);
 char * typeToString(typeImage type);
 
 /**
- * \fn 
- * \brief 
+ * \fn void usage();
+ * \brief Affiche l'usage de traitement_image
  *
- * \param[in] 
- * \param[out] 
- * \return 
  */
 void usage();
 
 /**
- * \fn 
- * \brief 
+ * \fn void message(char * mess)
+ * \brief Affiche des message informatifs
  *
- * \param[in] 
- * \param[out] 
+ * \param[in] mess Le message à affiché
  * \return 
  */
 void message(char * mess);
 
 /**
- * \fn 
- * \brief 
+ * \fn void verifppm(char * filename);
+ * \brief Verifie si le nom de fichier donnée en entrée est bien un .ppm. Quitte le programme dans le cas contraire
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] filename le nom du fichier
  */
 void verifppm(char * filename);
 
 /**
- * \fn 
- * \brief 
+ * \fn char * modifExtention(char * sourceName,int option)
+ * \brief Utilise sourceName, modifier son extention pour en faire un pgm ou ppm selon l'option et retourne une nouvelle chaine
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] sourceName Le nom du fichier ppm source
+ * \param[in] option Definit si le fichier destination doit etre un pbm ou ppm
+ * \return retourne un pointeur sur une nouvelle chaine de charactere contenant le nouveau nom (.pgm ou .ppm)
  */
 char * modifExtention(char * sourceName,int option);
 

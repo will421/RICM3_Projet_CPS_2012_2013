@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
     
     float a = 0.299,b=0.587,c=0.114,alpha=0.5;
     
+    /*Recupération des entrées */
     if(argc==1) {
         usage();
         return 0;
@@ -51,6 +52,7 @@ int main(int argc, char* argv[])
         }  
     }
 
+    /*Recupération de l'image*/
     if(bfile) {
         fileSource = fopen(sourceName,"r"); 
         if (fileSource==NULL) { 
@@ -59,23 +61,23 @@ int main(int argc, char* argv[])
         }
         img = readppm(fileSource); 
     } else {
-    
         img = readppmIn();
     }
      
+     /*Transformation de l'image */
     if (option) {
         coloredtoBW(img,alpha);
     } else {
         coloredtogray(img,a,b,c); 
     }
 	
+	/*Ecriture de la nouvelle image */
 	if(bfile) {
 	    destName = modifExtention(sourceName,option);
 	} else
 	{
 	    destName = option ? "image.pbm" : "image.pgm";
 	}
-	
 	fileDest = fopen(destName, "w+");
 	if(fileDest == NULL) {message("erreur à l'ouverture du fichier de sortie"); return 0;};
 	if (option) {
