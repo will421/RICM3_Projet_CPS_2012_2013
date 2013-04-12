@@ -24,16 +24,14 @@ typedef enum typeImage {
 
 typedef struct image {
 	enum typeImage t;		
-	uint32_t l;			
-	uint32_t h;			
+	uint32_t l;		
+	uint32_t h;		
 	int vmax;			
 	uint64_t *data;	
 } image;
 
 void trace(char * message);
 
-/* Convertit un PPM en PGM */
-/*Affiche un message sur une ligne */
 /**
  * \fn 
  * \brief 
@@ -44,7 +42,6 @@ void trace(char * message);
  */
 void coloredtogray(image * i,float a,float b,float c);
 
-/*Affiche un message sur une ligne */
 /**
  * \fn 
  * \brief 
@@ -55,7 +52,6 @@ void coloredtogray(image * i,float a,float b,float c);
  */
 void RGBtoGrey(uint64_t *pixel,float a,float b,float c);
 
-/* Convertit un PPM en PBM */
 /**
  * \fn 
  * \brief 
@@ -126,5 +122,45 @@ void getColor(uint64_t const *pixel, uint16_t *r,uint16_t *g,uint16_t *b);
  * \return Une chaine de caractére qui représente le type.
  */
 char * typeToString(typeImage type);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void usage();
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void message(char * mess);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void verifppm(char * filename);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+char * modifExtention(char * sourceName,int option);
 
 #endif

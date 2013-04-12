@@ -12,67 +12,6 @@
 #include "pgm.h"
 #include "pbm.h"
 
-int getBluePart(uint64_t data) {
-    return data & 0xFFFF;
-}
-
-int getGreenPart(uint64_t data) {
-    return (data >> 16) & 0xffff;
-}
-
-int getRedPart(uint64_t data) {
-    return data >> 32 & 0xffff;
-}
-
-void printData(image *img) {
-    unsigned int i;
-    if (img != NULL && img->data != NULL) {
-        printf("\tData :");
-        if (img->t == P1) {
-            for (i = 0; i < img->l * img->h; i++) {
-                if (i % img->l == 0) printf("\n\t\t");
-                printf("%d ", (int) img->data[i]);
-            }
-        } else {
-            for (i = 0; i < img->l * img->h; i++) {
-                if (i % img->l == 0) printf("\n\t\t");
-                printf("%d ", getRedPart(img->data[i]));
-                printf("%d ", getGreenPart(img->data[i]));
-                printf("%d ", getBluePart(img->data[i]));
-            }
-        }
-    }
-}
-
-void usage() {
-    printf("Usage : traitement_image [-g|-d] (FILE.ppm)\n");
-}
-
-void message(char * mess) {
-    printf("Message : %s\n",mess);
- }
-    
-void verifppm(char * filename) {
-     printf("%s\n",filename);
-    char * extension = strrchr(filename,'.');
-    if (extension==NULL || strcmp(extension,".ppm")!=0) {
-        message("Format de fichier inconnu. \".ppm\" demandé");
-        usage();
-        exit(0);
-    }
-}
-
-char * modifExtention(char * sourceName,int option) {
-    int size = strlen(sourceName);
-    char * res = (char *)malloc(sizeof(char)*size);
-    strcpy(res,sourceName);
-    *(res+size-2) = option ? 'b' : 'g';
-    trace(sourceName);
-    trace(res);
-    return res;
-}
-
-
 
 int main(int argc, char* argv[])
 {
@@ -121,7 +60,7 @@ int main(int argc, char* argv[])
         img = readppm(fileSource); 
     } else {
     
-        /* img = tafonction kikou */
+        img = readppmIn();
     }
      
     if (option) {

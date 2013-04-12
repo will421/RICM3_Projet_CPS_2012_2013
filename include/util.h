@@ -24,8 +24,8 @@ typedef enum typeImage {
 
 typedef struct image {
 	enum typeImage t;		
-	uint32_t l;			
-	uint32_t h;			
+	uint32_t l;		
+	uint32_t h;		
 	int vmax;			
 	uint64_t *data;	
 } image;
@@ -122,5 +122,45 @@ void getColor(uint64_t const *pixel, uint16_t *r,uint16_t *g,uint16_t *b);
  * \return Une chaine de caractére qui représente le type.
  */
 char * typeToString(typeImage type);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void usage();
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void message(char * mess);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+void verifppm(char * filename);
+
+/**
+ * \fn 
+ * \brief 
+ *
+ * \param[in] 
+ * \param[out] 
+ * \return 
+ */
+char * modifExtention(char * sourceName,int option);
 
 #endif

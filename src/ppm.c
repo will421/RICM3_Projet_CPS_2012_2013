@@ -83,3 +83,54 @@ image* readppm(FILE *sourceFile){
 	
 	return img;
 }
+
+/********************************************/
+/* */
+image* readppmIn(){
+	image *img;
+	int t,vm,l,h,i;
+	int r=0,g=0,b=0;
+	int size;
+	
+	do {
+		printf("Largeur et hauteur: \n"); t = scanf("%d %d",&l,&h);
+	}while( t != 2);
+	do {
+		printf("Valeur max: \n"); t = scanf("%d",&vm);
+		if(vm > 65536) { printf("ERREUR: vm > 65536");}
+	}while( vm > 65536);
+	
+	img = (image *)malloc(sizeof(image));
+	printf("%d\n",img);
+	if( img != NULL){
+		img->t = P3;
+		img->l = l;
+		img->h = h;
+		img->vmax = vm;
+		img->data = (uint64_t *)malloc(size * sizeof(uint64_t));
+		if(img->data != NULL){
+			size = l*h;
+			i=0;
+			while(i<size){
+				do{
+					printf("\nr g b:");
+					scanf("%d %d %d",&r,&g,&b);
+					if(r > vm || g > vm || b > vm){
+						printf("ERREUR, we need: r < vmax && g < vmax && b < vmax\n");
+					}
+					
+				}while( r > vm || g > vm || b > vm);
+				img->data[i] = r + g << 16 + b << 32;
+				printf("%d \n",i);
+				i++;
+			}
+		}else{
+			printf("ERREUR: Impossible d'allouer de la mémoir pour la data de l'image");
+		}
+	}else{
+		printf("ERREUR: Impossible d'allouer de la mémoir pour l'image");
+	}
+	return img;
+}
+
+

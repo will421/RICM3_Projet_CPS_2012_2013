@@ -26,7 +26,7 @@
 int readPixelppm(FILE *sourceFile, uint64_t *pixel);
 
 /**
- * \fn int writepgm(FILE * destFile, image* img);
+ * \fn int readDatappm(FILE *sourceFile,image *img)
  * \brief Lit toute la partie data du fichier ppm et la met dans "data" de img
  *
  * \param[out] sourceFile Le fichier ppm à lire.
@@ -36,12 +36,21 @@ int readPixelppm(FILE *sourceFile, uint64_t *pixel);
 int readDatappm(FILE *sourceFile,image *img);
 
 /**
- * \fn int writepgm(FILE * destFile, image* img);
+ * \fn image* readppm(FILE *sourceFile)
  * \brief Lit un fichier ppm, créé une structure image et la remplit.
  *
  * \param[in] sourceFile Le fichier ppm à lire.
  * \return Un pointeur sur l'image créé lors de la lecture ou null sinon 
  */
 image* readppm(FILE *sourceFile);
+
+/**
+ * \fn image* readppmIn(FILE *sourceFile)
+ * \brief Lit un fichier ppm sur l'entré standard
+ *
+ * \param[in] sourceFile Le fichier ppm à lire.
+ * \return Un pointeur sur l'image créé lors de la lecture ou null sinon 
+ */
+image* readppmIn();
 
 #endif

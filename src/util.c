@@ -118,3 +118,32 @@ char * typeToString(typeImage type){
 	        return  "";
 	 }
 }
+
+void usage() {
+    printf("Usage : traitement_image [-g|-d] (FILE.ppm)\n");
+}
+
+void message(char * mess) {
+    printf("Message : %s\n",mess);
+ }
+    
+void verifppm(char * filename) {
+     printf("%s\n",filename);
+    char * extension = strrchr(filename,'.');
+    if (extension==NULL || strcmp(extension,".ppm")!=0) {
+        message("Format de fichier inconnu. \".ppm\" demandé");
+        usage();
+        exit(0);
+    }
+}
+
+char * modifExtention(char * sourceName,int option) {
+    int size = strlen(sourceName);
+    char * res = (char *)malloc(sizeof(char)*size);
+    strcpy(res,sourceName);
+    *(res+size-2) = option ? 'b' : 'g';
+    trace(sourceName);
+    trace(res);
+    return res;
+}
+
