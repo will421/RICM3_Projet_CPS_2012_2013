@@ -30,45 +30,55 @@ typedef struct image {
 	uint64_t *data;	
 } image;
 
+/**
+ * \fn void trace(char * message);
+ * \bried Raccourci pour afficher des messages rapides lors du debugage
+ *
+ * \param[in] message Le message à afficher précédé de "trace :"
 void trace(char * message);
 
 /**
- * \fn 
- * \brief 
+ * \fn void coloredtogray(image * i,float a,float b,float c);
+ * \brief Convert une image de couleur en une image en nuance de gris
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] image L'image à modifier
+ * \param[in] a definit l'importance du rouge
+ * \param[in] b definit l'importance du vert
+ * \param[in] c definit l'importance du bleu
+ * \param[out] image L'image modifié en gris
  */
 void coloredtogray(image * i,float a,float b,float c);
 
 /**
- * \fn 
- * \brief 
+ * \fn void RGBtoGrey(uint64_t *pixel,float a,float b,float c)
+ * \brief Convertit un pixel de couleur en un pixel gris
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] pixel le pixel à modifier
+ * \param[in] a definit l'importance du rouge
+ * \param[in] b definit l'importance du vert
+ * \param[in] c definit l'importance du bleu
+ * \param[out] pixel le pixel modifié en gris
  */
 void RGBtoGrey(uint64_t *pixel,float a,float b,float c);
 
 /**
- * \fn 
- * \brief 
+ * \fn void coloredtoBW(image * i,float alpha)
+ * \brief Convertit une image ppm en une image noir et blanc
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] image L'image à modifier
+ * \param[in] alpha Definit à partir de quel intensité passer en noir ou blanc
+ * \param[out] image L'image modifié en noir et blanc
  */
 void coloredtoBW(image * i,float alpha);
 
 /**
- * \fn 
- * \brief 
+ * \fn void RGBtoBW(uint64_t *pixel,int vmax,float alpha
+ * \brief Convertit un pixel coloré en un pixel noir ou blanc
  *
- * \param[in] 
- * \param[out] 
- * \return 
+ * \param[in] pixel le pixel à modifier
+ * \param[in] vmax La valeur que ne doit pas depasser le pixel
+ * \param[in] alpha Definit à partir de quel intensité passer en noir ou blanc
+ * \param[out] pixel le pixel modifié
  */
 void RGBtoBW(uint64_t *pixel,int vmax,float alpha);
 
